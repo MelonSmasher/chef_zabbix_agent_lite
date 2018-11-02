@@ -6,16 +6,10 @@
 
 if %w(windows debian rhel).include?(node['platform_family'])
 
-  zabbix_version_linux_repo_deb = node['zabbix']['agent']['version']['linux']['repo']['deb']
-  zabbix_version_linux_repo_rhel = node['zabbix']['agent']['version']['linux']['repo']['rhel']
-
-  zabbix_version_linux_deb = node['zabbix']['agent']['version']['linux']['deb']
-  zabbix_version_linux_rhel = node['zabbix']['agent']['version']['linux']['rhel']
-
-  zabbix_version_windows = node['zabbix']['agent']['version']['windows']
-
   case node['platform_family']
   when 'debian'
+    zabbix_version_linux_repo_deb = node['zabbix']['agent']['version']['linux']['repo']['deb']
+    zabbix_version_linux_deb = node['zabbix']['agent']['version']['linux']['deb']
 
     # Add the the Zabbix repo to Debian systems.
     apt_repository 'zabbix' do
@@ -34,6 +28,8 @@ if %w(windows debian rhel).include?(node['platform_family'])
 
 
   when 'rhel'
+    zabbix_version_linux_repo_rhel = node['zabbix']['agent']['version']['linux']['repo']['rhel']
+    zabbix_version_linux_rhel = node['zabbix']['agent']['version']['linux']['rhel']
 
     # Add the Zabbix repo to RHEL systems.
     yum_repository 'zabbix' do
@@ -59,6 +55,7 @@ if %w(windows debian rhel).include?(node['platform_family'])
     end
 
   when 'windows'
+    zabbix_version_windows = node['zabbix']['agent']['version']['windows']
 
     # Make sure we have Chocolatey installed.
     include_recipe 'chocolatey::default'
