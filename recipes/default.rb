@@ -7,6 +7,18 @@
 if %w(windows debian rhel).include?(node['platform_family'])
 
   case node['platform_family']
+
+  when 'windows'
+    zabbix_version_windows = node['zabbix']['agent']['version']['windows']
+
+    # Make sure we have Chocolatey installed.
+    include_recipe 'chocolatey::default'
+    # Install the agent
+    chocolatey_package 'zabbix-agent' do
+      version zabbix_version_windows
+      action :install
+    end
+
   when 'debian'
     zabbix_version_linux_repo_deb = node['zabbix']['agent']['version']['linux']['repo']['deb']
     zabbix_version_linux_deb = node['zabbix']['agent']['version']['linux']['deb']
@@ -54,17 +66,6 @@ if %w(windows debian rhel).include?(node['platform_family'])
       action :install
     end
 
-  when 'windows'
-    zabbix_version_windows = node['zabbix']['agent']['version']['windows']
-
-    # Make sure we have Chocolatey installed.
-    include_recipe 'chocolatey::default'
-    # Install the agent
-    chocolatey_package 'zabbix-agent' do
-      version zabbix_version_windows
-      action :install
-    end
-
   end
 
   # Define the Zabbix agent service
@@ -75,7 +76,7 @@ if %w(windows debian rhel).include?(node['platform_family'])
   # Generate the configuration file then notify the zabbix-agent service with a restart
   template node['zabbix']['agent']['conf_path'] do
     source 'zabbix_agentd.conf.erb'
-    notifies :restart, 'service[zabbix-agent]', :immediately
+    notifies :restart, "service[#{node['zabbix']['agent']['service_name']}]", :immediately
   end
 
 else
