@@ -37,7 +37,7 @@ if %w(windows debian rhel).include?(node['platform_family'])
 
     # Add the Zabbix repo to RHEL systems.
     yum_repository 'zabbix' do
-      name 'Zabbix'
+      description 'Zabbix'
       baseurl "http://repo.zabbix.com/zabbix/#{zabbix_version_linux_repo_rhel}/rhel/7/$basearch/"
       gpgkey 'https://repo.zabbix.com/RPM-GPG-KEY-ZABBIX'
       enabled true
@@ -45,7 +45,7 @@ if %w(windows debian rhel).include?(node['platform_family'])
       action :create
     end
     yum_repository 'zabbix-non-supported' do
-      name 'Zabbix non-supported'
+      description 'Zabbix non-supported'
       baseurl "http://repo.zabbix.com/non-supported/rhel/7/$basearch/"
       gpgkey 'https://repo.zabbix.com/RPM-GPG-KEY-ZABBIX'
       enabled true
