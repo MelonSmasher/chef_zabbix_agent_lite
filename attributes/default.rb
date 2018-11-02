@@ -4,7 +4,7 @@ default['zabbix']['agent']['version']['linux']['repo']['deb'] = '3.4'
 default['zabbix']['agent']['version']['linux']['repo']['rhel'] = '3.4'
 # The explicit version of the agent to install
 default['zabbix']['agent']['version']['linux']['deb'] = "1:3.4.14-1+#{node['lsb']['codename']}"
-default['zabbix']['agent']['version']['linux']['rhel'] = '3.4.14-1'
+default['zabbix']['agent']['version']['linux']['rhel'] = '3.4.14'
 
 # https://chocolatey.org/packages/zabbix-agent
 # The version of the agent to install via Chocolatey
