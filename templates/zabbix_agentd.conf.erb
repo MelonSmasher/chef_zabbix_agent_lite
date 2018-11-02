@@ -4,7 +4,8 @@
 <% node['zabbix']['agent']['config'].each do |option, value| -%>
 <% if value.kind_of?(Array) %>
 <%= option %>={ <%= value.join(",") %> }
-<% elsif value.kind_of?(String) %>
+<% end %>
+<% if value.kind_of?(String) %>
 <%= option %>={ <%= value %> }
-<%= end %>
+<% end %>
 <% end -%>
