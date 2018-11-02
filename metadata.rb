@@ -13,10 +13,10 @@ version '0.1.0'
 chef_version ">= 12.11" if respond_to?(:chef_version)
 
 supports 'ubuntu', '>= 14.04'
-supports 'debian', '>= 8'
-supports 'centos', '>= 7'
-supports 'redhat', '>= 7'
-supports 'oracle linux', '>= 7'
+supports 'debian', '>= 8.0'
+supports 'centos', '>= 7.0'
+supports 'redhat', '>= 7.0'
+supports 'oracle linux', '>= 7.0'
 supports 'windows'
 
 depends 'chocolatey', '~> 2.0.0'
