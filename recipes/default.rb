@@ -39,7 +39,7 @@ if %w(windows debian rhel).include?(node['platform_family'])
     yum_repository 'zabbix' do
       description 'Zabbix'
       baseurl "http://repo.zabbix.com/zabbix/#{zabbix_version_linux_repo_rhel}/rhel/7/$basearch/"
-      gpgkey 'https://repo.zabbix.com/RPM-GPG-KEY-ZABBIX'
+      gpgkey 'https://repo.zabbix.com/RPM-GPG-KEY-ZABBIX-A14FE591'
       enabled true
       gpgcheck true
       action :create
@@ -47,7 +47,7 @@ if %w(windows debian rhel).include?(node['platform_family'])
     yum_repository 'zabbix-non-supported' do
       description 'Zabbix non-supported'
       baseurl "http://repo.zabbix.com/non-supported/rhel/7/$basearch/"
-      gpgkey 'https://repo.zabbix.com/RPM-GPG-KEY-ZABBIX'
+      gpgkey 'https://repo.zabbix.com/RPM-GPG-KEY-ZABBIX-A14FE591'
       enabled true
       gpgcheck true
       action :create
