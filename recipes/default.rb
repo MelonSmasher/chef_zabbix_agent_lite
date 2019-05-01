@@ -21,7 +21,7 @@ if %w(windows debian rhel).include?(node['platform_family'])
 
   when 'debian'
     zabbix_version_linux_repo_deb = node['zabbix']['agent']['version']['linux']['repo']['deb']
-    zabbix_version_linux_deb = node['zabbix']['agent']['version']['linux']['deb']
+    zabbix_version_linux_deb = "#{node['zabbix']['agent']['version']['linux']['deb']}#{node['lsb']['codename']}"
 
     # Add the the Zabbix repo to Debian systems.
     apt_repository 'zabbix' do

@@ -22,7 +22,7 @@ when 'debian', 'rhel'
   # https://repo.zabbix.com/zabbix/
   # The repo version to install
   # The explicit version of the agent to install
-  default['zabbix']['agent']['version']['linux']['deb'] = "1:3.4.14-1+#{node['lsb']['codename']}"
+  default['zabbix']['agent']['version']['linux']['deb'] = "1:3.4.15-1+"
   default['zabbix']['agent']['version']['linux']['rhel'] = '3.4.14-1.el7'
   default['zabbix']['agent']['conf_path'] = '/etc/zabbix/zabbix_agentd.conf'
   default['zabbix']['agent']['service_name'] = 'zabbix-agent'
