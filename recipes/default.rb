@@ -22,6 +22,7 @@ if %w(windows debian rhel).include?(node['platform_family'])
   when 'debian'
     zabbix_version_linux_repo_deb = node['zabbix']['agent']['version']['linux']['repo']['deb']
     zabbix_version_linux_deb = "#{node['zabbix']['agent']['version']['linux']['deb']}#{node['lsb']['codename']}"
+    zabbix_action_linux_deb = node['zabbix']['agent']['action']['linux']['deb']
 
     # Add the the Zabbix repo to Debian systems.
     apt_repository 'zabbix' do
@@ -32,16 +33,24 @@ if %w(windows debian rhel).include?(node['platform_family'])
       key "http://repo.zabbix.com/zabbix-official-repo.key"
       action :add
     end
-    # Install the agent
-    apt_package 'zabbix-agent' do
-      version zabbix_version_linux_deb
-      action :install
+    if zabbix_action_linux_deb.eql? 'upgrade'
+      # Install the agent
+      apt_package 'zabbix-agent' do
+        action :upgrade
+      end
+    else
+      # Install the agent
+      apt_package 'zabbix-agent' do
+        version zabbix_version_linux_deb
+        action :install
+      end
     end
 
 
   when 'rhel'
     zabbix_version_linux_repo_rhel = node['zabbix']['agent']['version']['linux']['repo']['rhel']
     zabbix_version_linux_rhel = node['zabbix']['agent']['version']['linux']['rhel']
+    zabbix_action_linux_rhel = node['zabbix']['agent']['action']['linux']['rhel']
 
     # Add the Zabbix repo to RHEL systems.
     yum_repository 'zabbix' do
@@ -60,20 +69,26 @@ if %w(windows debian rhel).include?(node['platform_family'])
       gpgcheck true
       action :create
     end
-    # Install the agent
-    yum_package 'zabbix-agent' do
-      version zabbix_version_linux_rhel
-      action :install
+    if zabbix_action_linux_rhel.eql? 'upgrade'
+      # Install the agent
+      yum_package 'zabbix-agent' do
+        action :upgrade
+      end
+    else
+      # Install the agent
+      yum_package 'zabbix-agent' do
+        version zabbix_version_linux_rhel
+        action :install
+      end
     end
-
   end
 
-  # Define the Zabbix agent service
+# Define the Zabbix agent service
   service node['zabbix']['agent']['service_name'] do
     action :nothing
   end
 
-  # Generate the configuration file then notify the zabbix-agent service with a restart
+# Generate the configuration file then notify the zabbix-agent service with a restart
   template node['zabbix']['agent']['conf_path'] do
     source 'zabbix_agentd.conf.erb'
     notifies :restart, "service[#{node['zabbix']['agent']['service_name']}]", :immediately

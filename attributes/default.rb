@@ -27,6 +27,9 @@ when 'debian', 'rhel'
   default['zabbix']['agent']['conf_path'] = '/etc/zabbix/zabbix_agentd.conf'
   default['zabbix']['agent']['service_name'] = 'zabbix-agent'
 
+  default['zabbix']['agent']['action']['linux']['deb'] = 'install'
+  default['zabbix']['agent']['action']['linux']['rhel'] = 'install'
+
   default['zabbix']['agent']['config']['LogFile'] = '/var/log/zabbix/zabbix_agentd.log'
   default['zabbix']['agent']['config']['PidFile'] = '/var/run/zabbix/zabbix_agentd.pid'
   default['zabbix']['agent']['config']['Include'] = '/etc/zabbix/zabbix_agentd.d/*.conf'
